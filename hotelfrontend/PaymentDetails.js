@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 export default function PaymentDetails(props) {
 
 
-   
+
 
 
 
@@ -22,12 +22,16 @@ export default function PaymentDetails(props) {
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="/customerhome">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
               </li>
 
 
-            </ul>
 
+            </ul>
+           
 
 
           </div>
@@ -41,12 +45,13 @@ export default function PaymentDetails(props) {
               <th>Payment id</th>
               <th>Payment Mode</th>
               <th>Booking id</th>
-              
+
               <th>Card No</th>
               <th>CVV</th>
               <th>Expiry</th>
-              
-              
+              <th>Amount paid</th>
+
+
             </tr>
 
           </thead>
@@ -58,8 +63,9 @@ export default function PaymentDetails(props) {
               <td>{JSON.parse(localStorage.getItem("payment")).cardno}</td>
               <td>{JSON.parse(localStorage.getItem("payment")).cvv}</td>
               <td>{JSON.parse(localStorage.getItem("payment")).expiry}</td>
-              
-              
+              <td>{JSON.parse(localStorage.getItem("totalcost"))}</td>
+
+
 
             </tr>
 
@@ -68,6 +74,10 @@ export default function PaymentDetails(props) {
           </tbody>
 
         </table>
+        <div>
+          <h3>Thank you for booking</h3>
+          <a href="/customerhome">Click here to browse hotels</a>
+        </div>
       </div>
     </div>
   )

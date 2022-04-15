@@ -53,7 +53,7 @@ export default function Login() {
                             //useNavigate("/customerhome")
                             //this.props.navigate("/customerhome")
                            // navigate("http://localhost:3000/login")
-                           mystore.dispatch({type:'LOGGEDIN'})
+                          // mystore.dispatch({type:'LOGGEDIN'})
                            navigate("/customerhome");
                         }
                         if(json.usertype=="service")

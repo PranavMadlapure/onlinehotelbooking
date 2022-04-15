@@ -58,6 +58,16 @@ export default function ViewHotel(props) {
     
   };*/
 
+  function importAll(r) {
+    let images = {};
+    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    return images;
+  }
+  
+  const images = importAll(require.context('./images', false, /\.(png|jpe?g|svg)$/));
+  
+  
+
 
   function loadHotel(ev) {
     //ev.preventDefault();
@@ -79,7 +89,7 @@ export default function ViewHotel(props) {
       .then(data => {
         if (data.length != 0) {
            const json = JSON.parse(data)
-           localStorage.setItem("hotels",JSON.stringify(json))
+           localStorage.setItem("hotel",JSON.stringify(json))
          // hname=data.hname;
           /*hotelregno = json.hotelregno;
            contact_no = json.contact_no;
@@ -115,8 +125,11 @@ export default function ViewHotel(props) {
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="/customerhome">Home</a>
               </li>
+              <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+        </li>
 
 
             </ul>
@@ -131,6 +144,7 @@ export default function ViewHotel(props) {
         <table class="table table-success">
           <thead>
             <tr>
+              <th>Hotel image</th>
               <th>Hotel Name</th>
               <th>Hotel Email</th>
               <th>Hotel Reg. No</th>
@@ -140,19 +154,22 @@ export default function ViewHotel(props) {
               <th>Hotel Non Ac room</th>
               <th>Action</th>
               
+              
             </tr>
 
           </thead>
           <tbody>
             <tr>
-              <td> {JSON.parse(localStorage.getItem("hotels")).hname}</td>
-              <td>{JSON.parse(localStorage.getItem("hotels")).email}</td>
-              <td>{JSON.parse(localStorage.getItem("hotels")).hotelregno}</td>
-              <td>{JSON.parse(localStorage.getItem("hotels")).address}</td>
-              <td>{JSON.parse(localStorage.getItem("hotels")).contact_no}</td>
-              <td>{JSON.parse(localStorage.getItem("hotels")).ac_room}</td>
-              <td>{JSON.parse(localStorage.getItem("hotels")).non_ac_room}</td>
-              <td><Link class="btn btn-primary mr-2" to={`/checkroom?hotelid=`+JSON.parse(localStorage.getItem("hotels")).hotelid}>
+              
+              <td><img src={images[JSON.parse(localStorage.getItem("hotel")).hotelid+".jpg"]} width="350" height={150}></img></td>
+              <td> {JSON.parse(localStorage.getItem("hotel")).hname}</td>
+              <td>{JSON.parse(localStorage.getItem("hotel")).email}</td>
+              <td>{JSON.parse(localStorage.getItem("hotel")).hotelregno}</td>
+              <td>{JSON.parse(localStorage.getItem("hotel")).address}</td>
+              <td>{JSON.parse(localStorage.getItem("hotel")).contact_no}</td>
+              <td>{JSON.parse(localStorage.getItem("hotel")).ac_room}</td>
+              <td>{JSON.parse(localStorage.getItem("hotel")).non_ac_room}</td>
+              <td><Link class="btn btn-primary mr-2" to={`/checkroom?hotelid=`+JSON.parse(localStorage.getItem("hotel")).hotelid}>
                     Check Room
                   </Link></td>
 

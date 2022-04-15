@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
 
                                          
 export default function Signup() {
-  const      [firstName, setFirstName] = useState("");
+  /*const      [firstName, setFirstName] = useState("");
   const      [lastName, setLastName] = useState("");
   const      [email, setEmail] = useState("");
   const      [password, setPassword] = useState("");
@@ -13,28 +13,41 @@ export default function Signup() {
   const      [aadhar_no, setAadhar_no] = useState("");
   const      [address, setAddress] = useState("");
   const      [usertype, setUsertype] = useState("");
-  const      [registerstatus, setRegisterStatus] = useState("");
+  const      [registerstatus, setRegisterStatus] = useState("");*/
+
+  const initialValues = { firstname: "",lastname:"", email: "", password: "",address:"",contact_no:"",aadhar_no:"",usertype:"" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
 
   
  let navigate=useNavigate();
+
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormValues({ ...formValues, [name]: value });
+};
  function dispMsg(ev){
     ev.preventDefault();
     
-    console.log(firstName);
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+    console.log(formValues.firstName);
     const reqData = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            fname:firstName,
-            lname:lastName,
-            email:email,
-            password:password,
-            contact_no:contact_no,
-            aadhar_no:aadhar_no,
-            address:address,
-            usertype:usertype
+            fname:formValues.firstName,
+            lname:formValues.lastName,
+            email:formValues.email,
+            password:formValues.password,
+            contact_no:formValues.contact_no,
+            aadhar_no:formValues.aadhar_no,
+            address:formValues.address,
+            usertype:formValues.usertype
            
         })
     };
@@ -55,7 +68,34 @@ export default function Signup() {
 
 
 
-      }                                                         
+      } 
+      useEffect(() => {
+        console.log(formErrors);
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+          console.log(formValues);
+        }
+      }, [formErrors]);
+      const validate = (values) => {
+        const errors = {};
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!values.username) {
+          errors.username = "Username is required!";
+        }
+        if (!values.email) {
+          errors.email = "Email is required!";
+        } else if (!regex.test(values.email)) {
+          errors.email = "This is not a valid email format!";
+        }
+        if (!values.password) {
+          errors.password = "Password is required";
+        } else if (values.password.length < 4) {
+          errors.password = "Password must be more than 4 characters";
+        } else if (values.password.length > 10) {
+          errors.password = "Password cannot exceed more than 10 characters";
+        }
+        return errors;
+      };
+                                                            
  
         
     return (
@@ -88,6 +128,12 @@ export default function Signup() {
 
       <div className='App container col-6'>
         <h3>New User Registration Form</h3>
+
+        {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <div className="ui message success">Signed in successfully</div>
+      ) : (
+        <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
+      )}
         <form noValidate onSubmit={dispMsg}>
           <div className='row'>
             <div className='col-md-6'>
@@ -97,10 +143,13 @@ export default function Signup() {
                 placeholder='First Name'
                 type='text'
                 name='firstName'
+              
                 noValidate
-                onChange={(e) => setFirstName(e.target.value)}
+                value={formValues.firstName}
+                onChange={handleChange}
               />
             </div>
+            <p>{formErrors.firstName}</p>
             <div className='col-md-6'>
               <label htmlFor='lastName'>Last Name</label>
               <input
@@ -109,9 +158,11 @@ export default function Signup() {
                 type='text'
                 name='lastName'
                 noValidate
-                onChange={(e) => setLastName(e.target.value)}
+                value={formValues.lastname}
+                onChange={handleChange}
               />
             </div>
+            <p>{formErrors.lastName}</p>
           </div>
  
           <div className='mb-3'>
@@ -122,9 +173,11 @@ export default function Signup() {
               type='email'
               name='email'
               noValidate
-              onChange={(e) => setEmail(e.target.value)}
+              value={formValues.email}
+              onChange={handleChange}
             />
           </div>
+          <p>{formErrors.email}</p>
           <div className='mb-3'>
             <label htmlFor='password'>Password</label>
             <input
@@ -133,9 +186,11 @@ export default function Signup() {
               type='password'
               name='password'
               noValidate
-              onChange={(e) => setPassword(e.target.value)}
+              value={formValues.password}
+              onChange={handleChange}
             />
           </div>
+          <p>{formErrors.password}</p>
           <div className='mb-3'>
             <label htmlFor='address'>Address</label>
             <input
@@ -144,9 +199,11 @@ export default function Signup() {
               type='text'
               name='address'
               noValidate
-              onChange={(e) => setAddress(e.target.value)}
+              value={formValues.address}
+              onChange={handleChange}
             />
           </div>
+          <p>{formErrors.address}</p>
           <div className='mb-3'>
             <label htmlFor='contact_no'>Contact no</label>
             <input
@@ -155,9 +212,11 @@ export default function Signup() {
               type='text'
               name='contact_no'
               noValidate
-              onChange={(e) => setContact_no(e.target.value)}
+              value={formValues.contact_no}
+              onChange={handleChange}
             />
           </div>
+          <p>{formErrors.contact_no}</p>
           <div className='mb-3'>
             <label htmlFor='aadhar_no'>Aadhar No</label>
             <input
@@ -166,15 +225,20 @@ export default function Signup() {
               type='text'
               name='aadhar_no'
               noValidate
-              onChange={(e) => setAadhar_no(e.target.value)}
+              value={formValues.aadhar_no}
+              onChange={handleChange}
             />
           </div>
+          <p>{formErrors.aadhar_no}</p>
             <div>
             Select UserType:
-                      <input type="radio" name="usertype" value="customer" onChange={(e) => setUsertype(e.target.value)} />Customer                   
-                      <input  type="radio" name="usertype" value="service" onChange={(e) => setUsertype(e.target.value)}/>Service
+                      <input type="radio" name="usertype" value={formValues.usertype} onChange={handleChange}/>Customer                   
+                      <input  type="radio" name="usertype" value={formValues.usertype} onChange={handleChange}/>Service
                       <br/>
             </div>
+            <p>{formErrors.usertype}</p>
+
+            
 
           <div className='mb-3'>
             <button type='submit'>Create Account</button>

@@ -63,26 +63,48 @@ function HotelByid(){
     <a class="navbar-brand" href="/">Online Hotel Booking System</a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-       
-        <li class="nav-item">
-        <Link
+      <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/servicehome`}
+                >
+                  Home
+                </Link>
+              </li>
+              
+              <li class="nav-item">
+                <Link
                   class="btn btn-outline-primary mr-2"
                   to={`/update?uid=${uid}`}
                 >
                   Profile
                 </Link>
-        </li>
-        <li>
-        <Link
+              </li>
+              <li class="nav-item">
+                <Link
                   class="btn btn-outline-primary mr-2"
-                  to={`/gethotelbyid`}
-                  >
-                  View Hotels
+                  to={`/addhotel`}
+                >
+                  Add Hotel
                 </Link>
-        </li>
+              </li>
+
+              <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/hotelbyid`}
+                >
+                  View Hotel
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/logout`}
+                >
+                  Logout
+                </Link>
+              </li>
         
        
       </ul>

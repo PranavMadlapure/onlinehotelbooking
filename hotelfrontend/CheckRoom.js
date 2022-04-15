@@ -76,7 +76,7 @@ export default function CheckRoom() {
                     address = json.address;
                      ac_room = json.ac_room;
                      non_ac_room = json.non_ac_room;*/
-                    console.log(data) 
+                    console.log(data)
                     setRoom(json);
                     console.log(data)
 
@@ -91,8 +91,6 @@ export default function CheckRoom() {
 
     }
 
-
-
     return (
         <div >
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -104,11 +102,17 @@ export default function CheckRoom() {
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/customerhome">Home</a>
                             </li>
 
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                                </li>
+                            
 
                         </ul>
+
 
 
 
@@ -120,6 +124,7 @@ export default function CheckRoom() {
                 <table class="table table-success">
                     <thead>
                         <tr>
+                            <th>Room image</th>
                             <th>Room type</th>
                             <th>Rate per Day</th>
 
@@ -132,11 +137,12 @@ export default function CheckRoom() {
                         {
                             Room.map((obj) => (
                                 <tr key={obj.rid}>
+                                    <td><img src={images[JSON.parse(localStorage.getItem("hotels")).hotelid + "-1.jpg"]} width="350" height={150}></img></td>
                                     <td>{obj.roomtype}</td>
                                     <td>{obj.rateperday}</td>
                                     <td><Link class="btn btn-primary mr-2" to={`/booking?rid=${obj.rid}`} >
                                         Book Room
-                                        {localStorage.setItem("room",JSON.stringify(obj))}
+                                        {localStorage.setItem("room", JSON.stringify(obj))}
                                     </Link></td>
                                 </tr>
                             ))

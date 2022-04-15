@@ -31,6 +31,8 @@ function Customerhome(){
                         console.log(json)
                         console.log(Hotel)
                         setHotel(json);
+                        localStorage.setItem("hotels",JSON.stringify(json))
+
                         console.log(Hotel)
 
                         
@@ -74,6 +76,7 @@ function Customerhome(){
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
+        
         <li class="nav-item">
         <Link
                   class="btn btn-outline-primary mr-2"
@@ -82,6 +85,11 @@ function Customerhome(){
                   Profile
                 </Link>
         </li>
+        <div className="d-flex align-items-center">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+        </li>
+        </div>
         
         
         

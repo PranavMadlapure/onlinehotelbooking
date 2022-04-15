@@ -15,8 +15,13 @@ function Servicehome() {
           <a class="navbar-brand" href="/">Online Hotel Booking System</a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/servicehome`}
+                >
+                  Home
+                </Link>
               </li>
               
               <li class="nav-item">
@@ -28,7 +33,12 @@ function Servicehome() {
                 </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/addhotel">Add Hotel</a>
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/addhotel`}
+                >
+                  Add Hotel
+                </Link>
               </li>
 
               <li class="nav-item">
@@ -37,6 +47,14 @@ function Servicehome() {
                   to={`/hotelbyid`}
                 >
                   View Hotel
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/logout`}
+                >
+                  Logout
                 </Link>
               </li>
 

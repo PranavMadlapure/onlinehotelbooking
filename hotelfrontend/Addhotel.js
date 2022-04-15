@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 
@@ -17,6 +17,36 @@ export default function Addhotel() {
   const [ac_room, setAc_room] = useState("");
   const [non_ac_room, setNon_ac_room] = useState("");
   const [uid, setUid] = useState("");
+  const isValid = hname != null && email.trim().length > 0;
+  const isValid1 = inputValues !=null;
+
+
+  const [inputValues, setInputValue] = useState({
+    hname: '',
+    hotelregno: '',
+    email: '',
+    cityname: '',
+    contact_no: '',
+    address:'',
+    ac_room:'',
+    non_ac_room:'',
+  });
+
+  const [validation, setValidation] = useState({
+    hname: '',
+    hotelregno: '',
+    email: '',
+    cityname: '',
+    contact_no: '',
+    address:'',
+    ac_room:'',
+    non_ac_room:'',
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setInputValue({ ...inputValues, [name]: value });
+  }
 
 
 
@@ -28,10 +58,72 @@ export default function Addhotel() {
 
   }
 
-  function dispMsg(ev) {
-    ev.preventDefault();
+ /* const checkValidation=()=> {
+    let errors=validation;
 
+    if (!inputValues.hname.trim()) {
+      errors.hname = 'Hotel name is required';
+    } else {
+      errors.fName = '';
+    }
+
+    if (!inputValues.hotelregno.trim()) {
+      errors.hotelregno = 'Hotel Reg.No is required';
+    } else {
+      errors.hotelregno = '';
+    }
+
+    if (!inputValues.email.trim()) {
+      errors.email = 'Hotel email is required';
+    } else {
+      errors.email = '';
+    }
+
+    if (!inputValues.cityname.trim()) {
+      errors.cityname = 'Hotel city is required';
+    } else {
+      errors.cityname = '';
+    }
+
+    if (!inputValues.contact_no.trim()) {
+      errors.contact_no = 'Hotel contact no. is required';
+    } else {
+      errors.contact_no = '';
+    }
+    
+    if (!inputValues.address.trim()) {
+      errors.address = 'Hotel address is required';
+    } else {
+      errors.address = '';
+    }
+
+    if (!inputValues.ac_room.trim()) {
+      errors.ac_room = 'Enter valid ac room';
+    } else {
+      errors.ac_room = '';
+    }
+
+    if (!inputValues.non_ac_room.trim()) {
+      errors.non_ac_room = 'Enter valid nonac room';
+    } else {
+      errors.non_ac_room = '';
+    }
+
+     setValidation(errors);
     //console.log(firstName);
+    
+
+
+
+
+  }
+  useEffect(() => {
+    checkValidation();
+  }, [inputValues]);
+*/
+
+  const dispMsg = (e) => {
+    e.preventDefault();
     const reqData = {
       method: 'POST',
       headers: {
@@ -70,11 +162,7 @@ export default function Addhotel() {
         else
           console.log("failed");
       })
-
-
-
-
-  }
+  };
 
 
   return (
@@ -89,10 +177,15 @@ export default function Addhotel() {
           <a class="navbar-brand" href="/">Online Hotel Booking System</a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/servicehome`}
+                >
+                  Home
+                </Link>
               </li>
-
+              
               <li class="nav-item">
                 <Link
                   class="btn btn-outline-primary mr-2"
@@ -101,9 +194,30 @@ export default function Addhotel() {
                   Profile
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/addhotel`}
+                >
+                  Add Hotel
+                </Link>
+              </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/addhotel">Add Hotel</a>
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/hotelbyid`}
+                >
+                  View Hotel
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/logout`}
+                >
+                  Logout
+                </Link>
               </li>
 
 
@@ -127,10 +241,14 @@ export default function Addhotel() {
                   placeholder='Hotel Name'
                   type='text'
                   name='hname'
-                  noValidate
+                  required
+                
                   onChange={(e) => setHname(e.target.value)}
+
+                  
                 />
               </div>
+
               <div className='col-md-6'>
                 <label htmlFor='regno'>Hotel Registration Number</label>
                 <input
@@ -138,8 +256,10 @@ export default function Addhotel() {
                   placeholder='Reg No'
                   type='text'
                   name='regno'
-                  noValidate
+                  required
+                  
                   onChange={(e) => setHotelRegno(e.target.value)}
+
                 />
               </div>
             </div>
@@ -153,6 +273,7 @@ export default function Addhotel() {
                 name='email'
                 noValidate
                 onChange={(e) => setEmail(e.target.value)}
+
               />
             </div>
 
@@ -166,6 +287,7 @@ export default function Addhotel() {
                 name='cityname'
                 noValidate
                 onChange={(e) => setCityName(e.target.value)}
+
               />
             </div>
 
@@ -243,7 +365,7 @@ export default function Addhotel() {
 
 
             <div className='mb-3'>
-              <button type='submit' onClick={userState}>Add Hotel</button>
+              <button type='submit' onClick={userState} disabled={!isValid}>Add Hotel</button>
             </div>
 
           </form>
