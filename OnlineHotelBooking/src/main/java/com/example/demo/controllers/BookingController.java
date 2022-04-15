@@ -34,4 +34,10 @@ public class BookingController {
 	{
 		return bservice.booking(b,rid,uid);
 	}
+	
+	@PostMapping("/getcost")
+	public int getbid(@RequestParam(value="bookingid") int bookingid)
+	{
+		return bservice.getcost(bookingid);
+	}
 }

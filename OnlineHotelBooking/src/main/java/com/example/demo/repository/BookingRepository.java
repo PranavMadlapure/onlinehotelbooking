@@ -26,4 +26,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	@Query(value="select bookingid from Booking ORDER BY bookingid DESC LIMIT 1",nativeQuery=true)
 	public int getbookingid();
 
+	@Query(value="select totalcost from Booking where bookingid= :bookingid",nativeQuery=true)
+	public int getcost(int bookingid);
+
 }

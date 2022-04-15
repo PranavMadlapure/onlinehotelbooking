@@ -26,6 +26,7 @@ public class UserService
 	{
 	
 		return urepo.save(q);
+	
 	}
 	
 	public User checklogin(String email,String password)

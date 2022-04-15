@@ -56,4 +56,9 @@ public class BookingService {
 		return brepo.findAll();
 	}
 
+	public int getcost(int bookingid) {
+		// TODO Auto-generated method stub
+		return brepo.getcost(bookingid);
+	}
+
 }
